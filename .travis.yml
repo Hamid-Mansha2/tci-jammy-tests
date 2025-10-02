@@ -1,0 +1,34 @@
+os: linux
+
+jobs:
+  include:
+    # --- Jammy with different languages ---
+    - dist: jammy
+      language: scala
+      script: lsb_release -d || cat /etc/os-release
+
+    - dist: jammy
+      language: java
+      script: lsb_release -d || cat /etc/os-release
+
+    - dist: jammy
+      language: python
+      script: lsb_release -d || cat /etc/os-release
+
+    - dist: jammy
+      language: node_js
+      script: lsb_release -d || cat /etc/os-release
+
+    - dist: jammy
+      language: generic
+      script: lsb_release -d || cat /etc/os-release
+
+    # --- Control: Bionic explicitly ---
+    - dist: bionic
+      language: scala
+      script: lsb_release -d || cat /etc/os-release
+
+    # --- Control: Focal (20.04) explicitly ---
+    - dist: focal
+      language: scala
+      script: lsb_release -d || cat /etc/os-release
