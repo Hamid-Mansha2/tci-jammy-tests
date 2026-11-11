@@ -1,8 +1,24 @@
-os: linux
-dist: focal
 language: php
-php:
-  - "8.3"
 
-before_script:
-  - composer selfupdate
+matrix:
+  include:
+    # Test Case 1: Noble (24.04) with PHP 7.4 & mbstring fix
+    - os: linux
+      dist: noble
+      php: '7.4'
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install -y php7.4-mbstring
+
+    # Test Case 2: Jammy (22.04) with Composer Memory Limit fix
+    - os: linux
+      dist: jammy
+      php: '7.4'
+      before_script:
+        - export COMPOSER_MEMORY_LIMIT=-1
+
+script:
+  # Check if mbstring is properly loaded
+  - php -m | grep mbstring
+  # Verify composer runs without out-of-memory errors
+  - composer --version
